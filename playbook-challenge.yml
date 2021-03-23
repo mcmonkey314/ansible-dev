@@ -1,0 +1,27 @@
+---
+- name: create user based on variable and take it to funkytown
+  hosts: renamed,!taz
+  gather_facts: no
+  connection: ssh
+
+  vars:
+   newusers:
+           - doug
+
+  tasks:
+  ## create group funkytown
+  - name: "take me to funkytown"
+    group:
+      name: funkytown
+      state: present
+    become: yes
+
+  ## add new user
+  - name: "take doug to funkytown"
+    user:
+      name: "{{ item }}"
+      state: present
+      group: funkytown
+    become: yes
+    loop: "{{newusers}}"
+

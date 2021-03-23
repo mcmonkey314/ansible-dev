@@ -1,0 +1,20 @@
+---
+- name: bootstrapping and new user
+  hosts: raiders
+  gather_facts: False
+  tasks:
+          - name: Remove user
+            user:
+                    name: exampleuser
+                    state: absent
+                    remove: yes
+            become: yes
+
+          - name: Remove group
+            group:
+                    name: sandbox
+                    state: absent
+            become: yes
+
+
+
