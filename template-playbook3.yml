@@ -13,13 +13,17 @@
 
 
   tasks:
+    - name: Configure spaceship registration
+      template: 
+        src: templates/ship.cfg.j2   
+        dest: ~/ship.cfg
 
     - name: Configure mission orders
       template:
         src: templates/mission-orders.txt.j2    # name of the template on ansible controller
-        dest: "~/{{ mission }}-mission-orders.txt"              # name of the completed file to be placed on the target system
-        loop: 
-          - mission: 'primary'
-            planet: 'luna park' 
-          - mission: 'secondary' 
-            planet: 'cineplex 14'    
+        dest: ~/{{ item.mission }}-mission-orders.txt              # name of the completed file to be placed on the target system
+      loop: 
+         - mission: primary
+           planet: luna park 
+         - mission: secondary 
+           planet: cineplex 14    
